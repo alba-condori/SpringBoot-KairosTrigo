@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import etec.backend.service.PrecondicionInvalidaException
 
 // 1. @WebMvcTest SOLO levanta la capa web (rutas, JSON, HTTP).
 // No inicia el contexto completo de Spring Boot ni levanta repositorios ni servicios reales.
@@ -53,6 +54,28 @@ class CalculadoraDeDescuentosControllerTest(
                 And("un campo para el final de la compra que deberia ser de 75.0") {
                     // Valida que el objeto devuelto por el controller se serialice correctamente a JSON
                     respuesta.andExpect(jsonPath("$.montoFinal").value(75.0))
+                }
+            }
+        }
+        And("un usuario 123 quiere aplicar descuentos a un monto menor a 0") {
+
+            every {
+                calculadora.aplicarDescuentosSegunUsuario("123", -10.0)
+            } throws PrecondicionInvalidaException("El monto debe ser mayor a cero")
+
+            When("se hace la petición con el monto inválido") {
+                val respuesta = navegador.perform(
+                    get("/api/descuentos")
+                        .param("userID", "123")
+                        .param("monto", "-10.0")
+                )
+
+                Then("el controlador debe traducir la excepción a un estado HTTP 400 Bad Request") {
+                    respuesta.andExpect(status().isBadRequest)
+                }
+
+                And("debe devolver un formato JSON estructurado con el mensaje de error") {
+                    respuesta.andExpect(jsonPath("$.error").value("El monto debe ser mayor a cero"))
                 }
             }
         }
