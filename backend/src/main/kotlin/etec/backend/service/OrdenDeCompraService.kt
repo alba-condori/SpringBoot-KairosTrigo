@@ -10,4 +10,5 @@ class OrdenDeCompra() {
     fun calcularTotal(): Int {
         return this.items.sumOf { it.precio }
     }
+
 }
