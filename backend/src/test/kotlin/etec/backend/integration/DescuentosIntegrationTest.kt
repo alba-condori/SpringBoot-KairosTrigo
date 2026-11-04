@@ -1,12 +1,11 @@
-package etec.backend.controller
+package etec.backend.integration
 
 import io.kotest.core.spec.style.BehaviorSpec
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -24,11 +23,11 @@ class DescuentosIntegrationTest(
             )
 
             Then("la lógica real debe lanzar la excepción y el manejador global interceptarla devolviendo HTTP 400") {
-                respuesta.andExpect(status().isBadRequest)
+                respuesta.andExpect(MockMvcResultMatchers.status().isBadRequest)
             }
 
             And("el cliente debe recibir la explicación del fallo en el cuerpo de la respuesta") {
-                respuesta.andExpect(jsonPath("$.error").value("El monto debe ser mayor a cero"))
+                respuesta.andExpect(MockMvcResultMatchers.jsonPath("$.error").value("El monto debe ser mayor a cero"))
             }
         }
     }
