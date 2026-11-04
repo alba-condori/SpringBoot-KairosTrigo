@@ -6,21 +6,22 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import java.math.BigDecimal
 
 @Entity
 @Table(name = "productos")
 class Producto(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    var id: Int? = null,
 
-    @Column(nullable = false, length = 120)
-    var nombre: String = "",
+    @Column(length = 100)
+    var nombre: String? = null,
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    var precio: BigDecimal = BigDecimal.ZERO,
+    @Column(length = 50)
+    var categoria: String? = null,
 
-    @Column(nullable = false)
-    var stock: Int = 0,
+    var precio: Int? = null,
+
+    @Column(name = "a_cotizar")
+    var aCotizar: Boolean? = null,
 )

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS productos (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(120) NOT NULL,
-    categoria VARCHAR(120) NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    a_cotizar idk NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    categoria VARCHAR(50),
+    precio INT,
+    a_cotizar TINYINT(1)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
