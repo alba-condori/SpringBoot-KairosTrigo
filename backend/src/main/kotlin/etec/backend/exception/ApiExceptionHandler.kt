@@ -16,10 +16,10 @@ data class ErrorResponse(
 )
 
 @RestControllerAdvice
-class ProductoExceptionHandler {
+class ApiExceptionHandler {
 
-    @ExceptionHandler(ProductoNoEncontradoException::class)
-    fun handleProductoNoEncontrado(ex: ProductoNoEncontradoException): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(RecursoNoEncontradoException::class)
+    fun handleNoEncontrado(ex: RecursoNoEncontradoException): ResponseEntity<ErrorResponse> {
         val body = ErrorResponse(
             status = HttpStatus.NOT_FOUND.value(),
             error = "Not Found",
@@ -32,7 +32,6 @@ class ProductoExceptionHandler {
     fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         val detalle = ex.bindingResult.fieldErrors
             .joinToString(", ") { "${it.field}:${it.defaultMessage}" }
-
         val body = ErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
             error = "Bad Request",

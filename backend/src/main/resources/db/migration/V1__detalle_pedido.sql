@@ -3,9 +3,8 @@ CREATE TABLE IF NOT EXISTS detalle_pedido (
     pedido_id INT,
     producto_id INT,
     cantidad INT,
-    sabor VARCHAR(50),
-    porciones INT,
-    descripcion TEXT,
+    variedad VARCHAR(50),
+    precio_unitario INT,
     FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
     FOREIGN KEY (producto_id) REFERENCES productos(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

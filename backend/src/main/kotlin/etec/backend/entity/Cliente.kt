@@ -17,6 +17,9 @@ class Cliente(
     @Column(length = 100)
     var nombre: String? = null,
 
+    @Column(length = 100)
+    var apellido: String? = null,
+
     @Column(length = 30)
     var telefono: String? = null,
 )

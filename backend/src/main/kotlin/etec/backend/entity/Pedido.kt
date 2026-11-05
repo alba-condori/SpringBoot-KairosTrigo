@@ -8,6 +8,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
@@ -21,8 +22,14 @@ class Pedido(
     @JoinColumn(name = "cliente_id")
     var cliente: Cliente? = null,
 
+    @Column(name = "fecha_pedido")
+    var fechaPedido: LocalDateTime? = null,
+
     @Column(name = "fecha_retiro")
-    var fechaRetiro: LocalDateTime? = null,
+    var fechaRetiro: LocalDate? = null,
+
+    @Column(name = "franja_horaria", length = 30)
+    var franjaHoraria: String? = null,
 
     @Column(name = "tipo_entrega", length = 20)
     var tipoEntrega: String? = null,
@@ -36,4 +43,7 @@ class Pedido(
     var total: Int? = null,
 
     var sena: Int? = null,
+
+    @Column(name = "sena_pagada")
+    var senaPagada: Boolean? = null,
 )

@@ -8,8 +8,6 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
-import org.hibernate.annotations.JdbcTypeCode
-import org.hibernate.type.SqlTypes
 
 @Entity
 @Table(name = "detalle_pedido")
@@ -29,11 +27,8 @@ class DetallePedido(
     var cantidad: Int? = null,
 
     @Column(length = 50)
-    var sabor: String? = null,
+    var variedad: String? = null,
 
-    var porciones: Int? = null,
-
-    @Column(columnDefinition = "text")
-    @JdbcTypeCode(SqlTypes.LONGVARCHAR)
-    var descripcion: String? = null,
+    @Column(name = "precio_unitario")
+    var precioUnitario: Int? = null,
 )
